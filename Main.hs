@@ -13,10 +13,10 @@ main = do
         else print "Invalid board: check size or formation"
 
 formatOutput :: Answer -> String
-formatOutput (Answer brd possibilities) = showSolution brd ++ showPossibilities possibilities
+formatOutput (Answer solution numberOfSolutions) = showSolution solution ++ showNumberOfSolutions numberOfSolutions
 
-showPossibilities :: Int -> String
-showPossibilities possibilities = "\n Number of solutions: " ++ show possibilities 
+showNumberOfSolutions :: Int -> String
+showNumberOfSolutions numberOfSolutions = "\n Number of solutions: " ++ show numberOfSolutions 
 
 showSolution :: Board -> String
 showSolution brd = unlines (map joinRow (boardToList brd))
