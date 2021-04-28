@@ -7,16 +7,16 @@ import Sudoku
 main = do
     [filename] <- getArgs
     input <- readInput filename
-    if inputValidSize input then
-        let brd = makeBoard input in
-            if isValid brd then
-                let result = solve brd in putStrLn (formatOutput result)
-            else print "Invalid board: this sudoku is already invalid."
-    else print "Invalid board: wrong size, expected a 9x9 board."
+    let brd = makeBoard input in
+        if isValid brd then
+            let result = solve brd in putStrLn (formatOutput result)
+        else print "Invalid board: check size or formation"
 
-formatOutput :: Maybe Board -> String
-formatOutput Nothing = "Couldn't find a solution for the board."
-formatOutput (Just brd) = showSolution brd
+formatOutput :: Answer -> String
+formatOutput (Answer brd possibilities) = showSolution brd ++ showPossibilities possibilities
+
+showPossibilities :: Int -> String
+showPossibilities possibilities = "\n Number of solutions: " ++ show possibilities 
 
 showSolution :: Board -> String
 showSolution brd = unlines (map joinRow (boardToList brd))
