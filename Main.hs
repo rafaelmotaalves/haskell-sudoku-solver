@@ -12,8 +12,10 @@ main = do
             let result = solve brd in putStrLn (formatOutput result)
         else print "Invalid board: check size or formation"
 
-formatOutput :: Answer -> String
-formatOutput (Answer solution numberOfSolutions) = showSolution solution ++ showNumberOfSolutions numberOfSolutions
+formatOutput :: [Board] -> String
+formatOutput solutions = solutionStr ++ showNumberOfSolutions numberOfSolutions
+    where numberOfSolutions = length solutions
+          solutionStr = if (numberOfSolutions > 0) then (showSolution (head solutions)) else ""
 
 showNumberOfSolutions :: Int -> String
 showNumberOfSolutions numberOfSolutions = "\n Number of solutions: " ++ show numberOfSolutions 

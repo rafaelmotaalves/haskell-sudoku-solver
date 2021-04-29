@@ -7,8 +7,6 @@ import Control.Monad
 
 type Board = Array Int Int
 
-data Answer = Answer Board Int
-
 makeBoard :: [[Int]] -> Board
 makeBoard xs = listArray (0, length (concat xs) - 1) (concat xs)
 
@@ -44,12 +42,9 @@ isWellFormed brd = all (\(x, y) -> let val = (get brd x y) in if (val /= 0) then
 hasValidSize :: Board -> Bool
 hasValidSize xs = length xs == 81
 
-solve :: Board -> Answer
-solve brd = Answer (head solution) numberOfSolutions
-  where 
-    solution = solve' brd emptys
-    numberOfSolutions = length solution
-    emptys = [ (x, y) | x <- [0..8], y <- [0..8], get brd x y == 0]
+solve :: Board -> [Board]
+solve brd = solve' brd emptys
+  where emptys = [ (x, y) | x <- [0..8], y <- [0..8], get brd x y == 0]
 
 candidates :: Board -> Int -> Int -> [Int]
 candidates brd x y = [1..9] \\ (row++col++box)
